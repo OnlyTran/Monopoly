@@ -231,11 +231,19 @@ public class main {
 	public static void setPlayers(gameboard[][] board, player[] p, String[][] display) {
 		for (int i = 0; i < display.length; i++) {
 			for (int j = 0; j < display[i].length; j++) {
+				
+//				System.out.println("i rn is : "+ i +" j rn is :" + j);
+				
 				if (p[0].getRow() == board[i][j].getRow() && p[0].getColumn() == board[i][j].getColumn()) {
 					display[i][j] = "1";
-				} else if (p[1].getRow() == board[i][j].getRow() && p[1].getColumn() == board[i][j].getColumn()) {
+				} else if ((p[1].getRow() == board[i][j].getRow()) && (p[1].getColumn() == board[i][j].getColumn())) {
+					System.out.println("i rn is : "+ i +" j rn is :" + j);
+					// THE GET COLUMN AND GET ROW IS WRONG
+					//System.out.println("P2 Spots: " + p[1].getRow() + ", " + p[1].getColumn());
+					System.out.println("row is "+board[i][j].getRow() + "colum is "+board[i][j].getColumn());
 					display[i][j] = "2";
 				}
+				
 			}
 		}
 	}
