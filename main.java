@@ -200,7 +200,7 @@ public class main {
 							p[i].setColumn(sum);
 						}
 					}
-					setPlayers(board, p, display);
+					// setPlayers(board, p, display);
 					printBoard(board, p, display);
 				} else if (choice == 2) {
 					printBoard(board, p, display);
@@ -247,15 +247,19 @@ public class main {
 	public static void printBoard(gameboard[][] board, player[] p, String[][] display) {
 		System.out.println("P1 Spots: " + p[0].getRow() + ", " + p[0].getColumn());
 		System.out.println("P2 Spots: " + p[1].getRow() + ", " + p[1].getColumn());
-		if ((p[0].getRow() != 0 || p[0].getColumn() != 0) || (p[1].getRow() != 0 || p[1].getColumn() != 0)) {
+		    //loop through the display array and set the values to the corresponding board values
 			for (int i = 0; i < display.length; i++) {
 				for (int j = 0; j < display[i].length; j++) {
-					if ((i != p[0].getRow() && j != p[0].getColumn())
-							&& (i != p[1].getRow() && j != p[1].getColumn())) {
+					if (i == p[0].getRow() && j == p[0].getColumn()) {
+						display[i][j] = "1";
+					} else if (i == p[1].getRow() && j == p[1].getColumn()) {
+						display[i][j] = "2";
+					} else {
 						display[i][j] = board[i][j].getDisplay();
 					}
 				}
 			}
+			//print the display array
 			System.out.println("Only see one player: Both players are on the spot");
 			System.out.println("1: Player One");
 			System.out.println("2: Player Two");
@@ -272,30 +276,6 @@ public class main {
 				}
 				System.out.println();
 			}
-		} else {
-			for (int i = 0; i < display.length; i++) {
-				for (int j = 0; j < display[i].length; j++) {
-
-					display[i][j] = board[i][j].getDisplay();
-				}
-			}
-			System.out.println("Only see one player: Both players are on the spot");
-			System.out.println("1: Player One");
-			System.out.println("2: Player Two");
-			System.out.println("G: GO!");
-			System.out.println("B: Brand (Property)");
-			System.out.println("?: Chance");
-			System.out.println("T: Tax");
-			System.out.println("J: Visit Jail/Jail");
-			System.out.println("P: Free Parking");
-			System.out.println("A: Get Arrested");
-			for (int i = 0; i < display.length; i++) {
-				for (int j = 0; j < display[i].length; j++) {
-					System.out.print(display[i][j] + "   ");
-				}
-				System.out.println();
-			}
-		}
 	}
 
 	public static boolean win(player[] p) {
