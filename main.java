@@ -149,20 +149,59 @@ public class main {
 				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
 				if (choice == 1) {
-				// Use a for loop to compare everything inside of the gameboard
-				// Do if statement to see compare the positions of the player and board
-				// Nest another if statement to get the String of each individual object
-				// (Make a method inside of the class to display what type of object it is)
-				// Use the .equals string method to compare
-				// End the for loop immediately after completing
+					// Use a for loop to compare everything inside of the
+					// gameboard
+					// Do if statement to see compare the positions of the
+					// player and board
+					// Nest another if statement to get the String of each
+					// individual object
+					// (Make a method inside of the class to display what type
+					// of object it is)
+					// Use the .equals string method to compare
+					// End the for loop immediately after completing
 					setPosition(p[i]);
 					printBoard(board, p, display);
-
-					for(int j = 0; j<board.length;j++){
-						for(int k = 0; k < board[j].length; k++){
-							if((p[i].getRow() == board[j][k].getRow()) &&(p[i].getColumn() == board[j][k].getColumn())){
+					System.out.println("Enter to continue...");
+					input.nextLine();
+					System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+					for (int j = 0; j < board.length; j++) {
+						for (int k = 0; k < board[j].length; k++) {
+							if ((p[i].getRow() == board[j][k].getRow())
+									&& (p[i].getColumn() == board[j][k].getColumn())) {
 								String objecttype = board[j][k].getDisplay();
-								
+								if (objecttype.equalsIgnoreCase("B")) {
+									boolean notvalid = false;
+									// Linked list should hold objects
+									System.out.println("You landed on a brand!");
+									System.out.println("Enter to continue...");
+									input.nextLine();
+									do {
+										System.out.println(
+												"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+										System.out.println(board[j][k].toString());
+										System.out.println("Would you like to learn from this brand?: ");
+										String brandchoice = input.nextLine();
+
+										if (brandchoice.equalsIgnoreCase("yes") || brandchoice.equalsIgnoreCase("y")) {
+
+										} else if (brandchoice.equalsIgnoreCase("no") || brandchoice.equalsIgnoreCase("n")) {
+
+										} else {
+											System.out.println("This isn't a valid answer!");
+											System.out.println("Enter to continue...");
+											input.nextLine();
+											notvalid = true;
+										}
+									} while (notvalid);
+								} else if (objecttype.equalsIgnoreCase("?")) {
+
+								} else if (objecttype.equalsIgnoreCase("T")) {
+
+								} else if (objecttype.equalsIgnoreCase("A")) {
+
+								} else {
+
+								}
 							}
 						}
 					}
@@ -178,13 +217,10 @@ public class main {
 			}
 		} while (win(p) != true && exit != true);
 
-		
 	}
 
-	public static void setPosition(player p){
+	public static void setPosition(player p) {
 		int roll = roll();
-		int x;
-		int y;
 		int sum = 0;
 		int diff = 0;
 		System.out.println("You rolled a " + roll);
@@ -241,37 +277,42 @@ public class main {
 	}
 
 	public static void printBoard(gameboard[][] board, player[] p, String[][] display) {
+		Scanner input = new Scanner(System.in);
 		System.out.println("P1 Spots: " + p[0].getRow() + ", " + p[0].getColumn());
 		System.out.println("P2 Spots: " + p[1].getRow() + ", " + p[1].getColumn());
-		    //loop through the display array and set the values to the corresponding board values
-			for (int i = 0; i < display.length; i++) {
-				for (int j = 0; j < display[i].length; j++) {
-					if (i == p[0].getRow() && j == p[0].getColumn()) {
-						display[i][j] = "1";
-					} else if (i == p[1].getRow() && j == p[1].getColumn()) {
-						display[i][j] = "2";
-					} else {
-						display[i][j] = board[i][j].getDisplay();
-					}
+		System.out.println("Enter to continue...");
+		input.nextLine();
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		// loop through the display array and set the values to the
+		// corresponding board values
+		for (int i = 0; i < display.length; i++) {
+			for (int j = 0; j < display[i].length; j++) {
+				if (i == p[0].getRow() && j == p[0].getColumn()) {
+					display[i][j] = "1";
+				} else if (i == p[1].getRow() && j == p[1].getColumn()) {
+					display[i][j] = "2";
+				} else {
+					display[i][j] = board[i][j].getDisplay();
 				}
 			}
-			//print the display array
-			System.out.println("Only see one player: Both players are on the spot");
-			System.out.println("1: Player One");
-			System.out.println("2: Player Two");
-			System.out.println("G: GO!");
-			System.out.println("B: Brand (Property)");
-			System.out.println("?: Chance");
-			System.out.println("T: Tax");
-			System.out.println("J: Visit Jail/Jail");
-			System.out.println("P: Free Parking");
-			System.out.println("A: Get Arrested");
-			for (int i = 0; i < display.length; i++) {
-				for (int j = 0; j < display[i].length; j++) {
-					System.out.print(display[i][j] + "   ");
-				}
-				System.out.println();
+		}
+		// print the display array
+		System.out.println("Only see one player: Both players are on the spot");
+		System.out.println("1: Player One");
+		System.out.println("2: Player Two");
+		System.out.println("G: GO!");
+		System.out.println("B: Brand (Property)");
+		System.out.println("?: Chance");
+		System.out.println("T: Tax");
+		System.out.println("J: Visit Jail/Jail");
+		System.out.println("P: Free Parking");
+		System.out.println("A: Get Arrested");
+		for (int i = 0; i < display.length; i++) {
+			for (int j = 0; j < display[i].length; j++) {
+				System.out.print(display[i][j] + "   ");
 			}
+			System.out.println();
+		}
 	}
 
 	public static boolean win(player[] p) {
