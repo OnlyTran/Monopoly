@@ -7,7 +7,7 @@ public class LinkedList {
     }
    
     // Add to the front of the linked list
-    public void addToFront(String n) {
+    public void addToFront(brand n) {
         if (head == null) {
             head = new Node(n);
         } else {
@@ -52,10 +52,10 @@ public class LinkedList {
     }
     // Nodes for the linked list
     private class Node {
-        private String data;
+        private brand data;
         private Node next;
         // Constructor
-        public Node(String n) {
+        public Node(brand n) {
             data = n;
             next = null;
         }
@@ -69,7 +69,7 @@ public class LinkedList {
         }
         // Get data of a node
         public String getData() {
-            return data;
+            return data.toString();
         }
  
     }
