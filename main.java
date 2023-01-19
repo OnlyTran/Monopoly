@@ -149,59 +149,9 @@ public class main {
 				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
 				if (choice == 1) {
-
-					int roll = roll();
-					int x;
-					int y;
-					int sum = 0;
-					int diff = 0;
-					System.out.println("You rolled a " + roll);
-					// Check if player is on rightmost column
-					if (p[i].getColumn() == 7) {
-						sum = (p[i].getRow() + roll);
-						if (sum > 7) {
-							p[i].setRow(7);
-							diff = sum - 7;
-							p[i].setColumn(7 - diff);
-						} else {
-							p[i].setRow(sum);
-						}
-					}
-					// Check if player is on bottom row
-					else if (p[i].getRow() == 7) {
-						sum = (p[i].getColumn() + roll);
-						if (sum > 7) {
-							p[i].setColumn(0);
-							diff = sum - 7;
-							p[i].setRow(7 - diff);
-						} else {
-							p[i].setColumn(7 - sum);
-						}
-					}
-					// Check if player is on leftmost column
-					else if (p[i].getColumn() == 0) {
-						diff = (p[i].getRow() - roll);
-						if (diff < 0) {
-							p[i].setRow(0);
-							diff = diff * -1;
-							p[i].setColumn(diff);
-						} else {
-							p[i].setRow(diff);
-						}
-					}
-					// Check if player is on top row
-					else if (p[i].getRow() == 0) {
-						sum = (p[i].getColumn() + roll);
-						if (sum > 7) {
-							p[i].setColumn(7);
-							diff = sum - 7;
-							p[i].setRow(diff);
-						} else {
-							p[i].setColumn(sum);
-						}
-					}
-					// setPlayers(board, p, display);
+					setPosition(p[i]);
 					printBoard(board, p, display);
+
 				} else if (choice == 2) {
 					printBoard(board, p, display);
 				} else if (choice == 3) {
@@ -223,25 +173,63 @@ public class main {
 		// End the for loop immediately after completing
 	}
 
+	public static void setPosition(player p){
+		int roll = roll();
+		int x;
+		int y;
+		int sum = 0;
+		int diff = 0;
+		System.out.println("You rolled a " + roll);
+		// Check if player is on rightmost column
+		if (p.getColumn() == 7) {
+			sum = (p.getRow() + roll);
+			if (sum > 7) {
+				p.setRow(7);
+				diff = sum - 7;
+				p.setColumn(7 - diff);
+			} else {
+				p.setRow(sum);
+			}
+		}
+		// Check if player is on bottom row
+		else if (p.getRow() == 7) {
+			sum = (p.getColumn() + roll);
+			if (sum > 7) {
+				p.setColumn(0);
+				diff = sum - 7;
+				p.setRow(7 - diff);
+			} else {
+				p.setColumn(7 - sum);
+			}
+		}
+		// Check if player is on leftmost column
+		else if (p.getColumn() == 0) {
+			diff = (p.getRow() - roll);
+			if (diff < 0) {
+				p.setRow(0);
+				diff = diff * -1;
+				p.setColumn(diff);
+			} else {
+				p.setRow(diff);
+			}
+		}
+		// Check if player is on top row
+		else if (p.getRow() == 0) {
+			sum = (p.getColumn() + roll);
+			if (sum > 7) {
+				p.setColumn(7);
+				diff = sum - 7;
+				p.setRow(diff);
+			} else {
+				p.setColumn(sum);
+			}
+		}
+	}
+
 	public static int roll() {
 		Random rand = new Random();
 
 		return rand.nextInt(6) + 1;
-	}
-
-	public static void setPlayers(gameboard[][] board, player[] p, String[][] display) {
-		for (int i = 0; i < display.length; i++) {
-			for (int j = 0; j < display[i].length; j++) {
-
-				if (p[0].getRow() == board[i][j].getRow() && p[0].getColumn() == board[i][j].getColumn()) {
-					display[i][j] = "1";
-				} else if ((p[1].getRow() == board[i][j].getRow()) && (p[1].getColumn() == board[i][j].getColumn())) {
-
-					display[i][j] = "2";
-				}
-
-			}
-		}
 	}
 
 	public static void printBoard(gameboard[][] board, player[] p, String[][] display) {
