@@ -149,8 +149,23 @@ public class main {
 				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
 				if (choice == 1) {
+				// Use a for loop to compare everything inside of the gameboard
+				// Do if statement to see compare the positions of the player and board
+				// Nest another if statement to get the String of each individual object
+				// (Make a method inside of the class to display what type of object it is)
+				// Use the .equals string method to compare
+				// End the for loop immediately after completing
 					setPosition(p[i]);
 					printBoard(board, p, display);
+
+					for(int j = 0; j<board.length;j++){
+						for(int k = 0; k < board[j].length; k++){
+							if((p[i].getRow() == board[j][k].getRow()) &&(p[i].getColumn() == board[j][k].getColumn())){
+								String objecttype = board[j][k].getDisplay();
+								
+							}
+						}
+					}
 
 				} else if (choice == 2) {
 					printBoard(board, p, display);
@@ -163,14 +178,7 @@ public class main {
 			}
 		} while (win(p) != true && exit != true);
 
-		// Use a for loop to compare everything inside of the gameboard
-		// Do if statement to see compare the positions of the player and board
-		// object
-		// Nest another if statement to get the String of each individual object
-		// (Make a
-		// method inside of the class to display what type of object it is)
-		// Use the .equals string method to compare
-		// End the for loop immediately after completing
+		
 	}
 
 	public static void setPosition(player p){
