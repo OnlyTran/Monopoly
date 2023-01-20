@@ -169,7 +169,7 @@ public class main {
 							if ((p[i].getRow() == board[j][k].getRow())
 									&& (p[i].getColumn() == board[j][k].getColumn())) {
 								String objecttype = board[j][k].getDisplay();
-								if (objecttype.equalsIgnoreCase("B")) {
+								if (objecttype.equalsIgnoreCase("B")) { // Landed on Brand
 									boolean notvalid = false;
 									// Linked list should hold objects
 									System.out.println("You landed on a brand!");
@@ -181,9 +181,10 @@ public class main {
 										System.out.println(board[j][k].toString());
 										System.out.println("Would you like to learn from this brand?: ");
 										String brandchoice = input.nextLine();
-
+										
 										if (brandchoice.equalsIgnoreCase("yes") || brandchoice.equalsIgnoreCase("y")) {
-
+											((brand) board[j][k]).buy();
+											
 										} else if (brandchoice.equalsIgnoreCase("no") || brandchoice.equalsIgnoreCase("n")) {
 
 										} else {
@@ -193,11 +194,11 @@ public class main {
 											notvalid = true;
 										}
 									} while (notvalid);
-								} else if (objecttype.equalsIgnoreCase("?")) {
+								} else if (objecttype.equalsIgnoreCase("?")) { // Landed on Chance
+									
+								} else if (objecttype.equalsIgnoreCase("T")) { // Landed on Tax
 
-								} else if (objecttype.equalsIgnoreCase("T")) {
-
-								} else if (objecttype.equalsIgnoreCase("A")) {
+								} else if (objecttype.equalsIgnoreCase("A")) { // Landed on Arrest
 
 								} else {
 
@@ -272,7 +273,6 @@ public class main {
 
 	public static int roll() {
 		Random rand = new Random();
-
 		return rand.nextInt(6) + 1;
 	}
 
