@@ -20,6 +20,14 @@ public class brand extends gameboard{
         lessons = 0;	
     }
    
+    public int getLessons(){
+    	return lessons;
+    }
+    
+    public int getMoney(){
+    	return cost;
+    }
+    
     public void buy(){
         bought = true;
     }
@@ -29,7 +37,7 @@ public class brand extends gameboard{
     }
     
     public String toString(){
-    	return "Name: " + name + "\nCost: " + cost + "Money for Your Lessons once Learned: " + lessons ;
+    	return "Name: " + name + " \nCost: " + cost + " \nMoney for Your Lessons once Learned: " + lessons ;
     }
 }
 
