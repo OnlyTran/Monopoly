@@ -69,9 +69,7 @@ public class main {
 		board[0][1] = new brand(); // Property (Alphabet Inc)
 		board[0][1].setDisplay("B");
 		board[0][1].setPosition(0, 1);
-		board[0][2] = new chance(); // Chance card
-		board[0][2].setDisplay("?");
-		board[0][2].setPosition(0, 2);
+		board[0][2] = new gameboard("?", 0, 2); // Chance card
 		board[0][3] = new brand(); // Property (Alphabet Inc)
 		board[0][3].setDisplay("B");
 		board[0][3].setPosition(0, 3);
@@ -85,9 +83,7 @@ public class main {
 		board[2][0] = new gameboard(); // Property (Amazon)
 		board[2][0].setDisplay("B");
 		board[2][0].setPosition(2, 0);
-		board[3][0] = new chance(); // Chance
-		board[3][0].setDisplay("?");
-		board[3][0].setPosition(3, 0);
+		board[3][0] = new gameboard("?", 3, 0); // Chance
 		board[4][0] = new gameboard(); // Property (Amazon)
 		board[4][0].setDisplay("B");
 		board[4][0].setPosition(4, 0);
@@ -98,15 +94,11 @@ public class main {
 		board[1][7] = new brand(); // Property (Microsoft)
 		board[1][7].setDisplay("B");
 		board[1][7].setPosition(1, 7);
-		board[2][7] = new chance(); // Chance
-		board[2][7].setDisplay("?");
-		board[2][7].setPosition(2, 7);
+		board[2][7] = new gameboard("?", 2, 7); // Chance
 		board[3][7] = new brand(); // Property (Microsoft)
 		board[3][7].setDisplay("B");
 		board[3][7].setPosition(3, 7);
-		board[4][7] = new chance(); // Chance
-		board[4][7].setDisplay("?");
-		board[4][7].setPosition(4, 7);
+		board[4][7] = new gameboard("?", 4, 7); // Chance
 		board[5][7] = new brand(); // Property (Microsoft)
 		board[5][7].setDisplay("B");
 		board[5][7].setPosition(5, 7);
@@ -117,9 +109,7 @@ public class main {
 		board[7][1] = new brand(); // Property (Sony)
 		board[7][1].setDisplay("B");
 		board[7][1].setPosition(7, 1);
-		board[7][2] = new chance(); // Chance
-		board[7][2].setDisplay("?");
-		board[7][2].setPosition(7, 2);
+		board[7][2] = new gameboard("?", 7, 2); // Chance
 		board[7][3] = new gameboard("T", 7, 3); // Tax
 		board[7][4] = new brand(); // Property (Sony)
 		board[7][4].setDisplay("B");
@@ -127,22 +117,24 @@ public class main {
 		board[7][5] = new brand(); // Property (Sony)
 		board[7][5].setDisplay("B");
 		board[7][5].setPosition(7, 5);
-		board[7][6] = new chance(); // Chance
-		board[7][6].setDisplay("?");
-		board[7][6].setPosition(7, 6);
+		board[7][6] = new gameboard("?", 7, 6); // Chance
 		board[7][7] = new gameboard("P", 7, 7); // Free parking
 		boolean exit = false;
 		String[][] display = new String[board.length][board[0].length];
 		printBoard(board, p, display);
-		// setPlayers(board, p[i], p2, display);
+		System.out.println("Enter to continue...");
+		input.nextLine();
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		
 		do {
 			for (int i = 0; i < p.length; i++) {
+				if(p[i].isArrested() == false){
 				System.out.println(p[i].getName() + "'s Menu:");
-
 				System.out.println("0. Save and Exit");
 				System.out.println("1. Roll");
 				System.out.println("2. Display Board");
-				System.out.println("3. Load Save File");
+				System.out.println("3. Check stats");
+				System.out.println("4. Load Save File");
 				System.out.println("Enter choice: ");
 				int choice = input.nextInt();
 				input.nextLine();
@@ -169,40 +161,69 @@ public class main {
 							if ((p[i].getRow() == board[j][k].getRow())
 									&& (p[i].getColumn() == board[j][k].getColumn())) {
 								String objecttype = board[j][k].getDisplay();
-								if (objecttype.equalsIgnoreCase("B")) { // Landed on Brand
+								if (objecttype.equalsIgnoreCase("B")) { // Landed
+																		// on
+																		// Brand
 									boolean notvalid = false;
 									// Linked list should hold objects
 									System.out.println("You landed on a brand!");
 									System.out.println("Enter to continue...");
 									input.nextLine();
-									do {
+									if (((brand) board[j][k]).isBought()) {
 										System.out.println(
 												"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 										System.out.println(board[j][k].toString());
 										System.out.println("Would you like to learn from this brand?: ");
 										String brandchoice = input.nextLine();
-										
-										if (brandchoice.equalsIgnoreCase("yes") || brandchoice.equalsIgnoreCase("y")) {
-											((brand) board[j][k]).buy();
-											
-										} else if (brandchoice.equalsIgnoreCase("no") || brandchoice.equalsIgnoreCase("n")) {
 
+										if (brandchoice.equalsIgnoreCase("yes") || brandchoice.equalsIgnoreCase("y")) {
+											if (p[i].getMoney() > ((brand) board[j][k]).getMoney()) {
+												((brand) board[j][k]).buy();
+												p[i].subtractMoney(((brand) board[j][k]).getMoney());
+												p[i].addProperty((brand) board[j][k]);
+												System.out.println("Property bought!");
+											} else {
+												System.out.println("You don't have enough money!");
+											}
+										} else if (brandchoice.equalsIgnoreCase("no")
+												|| brandchoice.equalsIgnoreCase("n")) {
+											System.out.println(":(");
 										} else {
 											System.out.println("This isn't a valid answer!");
 											System.out.println("Enter to continue...");
 											input.nextLine();
 											notvalid = true;
 										}
-									} while (notvalid);
-								} else if (objecttype.equalsIgnoreCase("?")) { // Landed on Chance
-									
-								} else if (objecttype.equalsIgnoreCase("T")) { // Landed on Tax
+									} else {
+										System.out.println("Uh oh! You landed on someones brand.");
+										System.out.println(
+												"Its time to pay up: $" + (((brand) board[j][k]).getLessons()));
+										p[i].subtractMoney(((brand) board[j][k]).getLessons());
+									}
+								} else if (objecttype.equalsIgnoreCase("?")) { // Landed on chance
+									//Change of plans
+									//Chance is gonna be gameboard object
+									//Just make one chance spot always do the same thing
 
-								} else if (objecttype.equalsIgnoreCase("A")) { // Landed on Arrest
-
-								} else {
-
+								} else if (objecttype.equalsIgnoreCase("T")) { // Landed
+																				// on
+																				// tax
+									System.out.println("You landed on tax!");
+									System.out.println("It's time to pay up $50");
+									p[i].subtractMoney(50);
+								} else if (objecttype.equalsIgnoreCase("A")) { // Landed
+																				// on
+																				// arrest
+									System.out.println("Uh oh!");
+									System.out.println("You got arrested :(.");
+									System.out.println("You'll be arrested for 3 turns or can pay your way out.");
+									p[i].setArrest();
+									// Code the arrest
+								} else { // Landed on blank space
+									System.out.println("Peaceful...");
 								}
+								System.out.println("Enter to continue...");
+								input.nextLine();
 							}
 						}
 					}
@@ -210,11 +231,24 @@ public class main {
 				} else if (choice == 2) {
 					printBoard(board, p, display);
 				} else if (choice == 3) {
+					p[i].toString();
+				} else if (choice == 4) {
 					System.out.println("WIP");
 				} else if (choice == 0) {
 					System.out.println("WIP");
 					exit = true;
 				}
+			}else{
+				if(p[i].getArrestedCount() < 3){
+					System.out.println("Your currently arrested!");
+					System.out.println("This is day " + p[i].getArrestedCount() + " of jail...");
+				}else{
+					System.out.println("Woohoo final day!");
+					System.out.println("Freedom is close...");
+					p[i].resetArrestedCount();
+					p[i].resetArrest();
+				}
+			}
 			}
 		} while (win(p) != true && exit != true);
 
