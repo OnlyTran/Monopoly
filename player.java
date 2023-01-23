@@ -5,6 +5,8 @@ public class player {
     private LinkedList property;
     int rowPosition;
     int columnPosition;
+    boolean arrested;
+    int arrestedcount;
 
 
     public player(){
@@ -13,6 +15,8 @@ public class player {
         property = new LinkedList();
         rowPosition = 0;
         columnPosition = 0;
+        arrested = false;
+        arrestedcount = 0;
     }
    
     public player(String n){
@@ -21,9 +25,33 @@ public class player {
         property = new LinkedList();
         rowPosition = 0;
         columnPosition = 0;
+        arrested = false;
+        arrestedcount = 0;
     }
-
-
+    
+    public void resetArrestedCount(){
+    	arrestedcount = 0;
+    }
+    
+    public void addArrestedCount(){
+    	arrestedcount+=1;
+    }
+    
+    public int getArrestedCount(){
+    	return arrestedcount;
+    }
+    
+    public void resetArrest(){
+    	arrested = false;
+    }
+    
+    public boolean isArrested(){
+    	return arrested;
+    }
+    
+    public void setArrest(){
+    	arrested = true;
+    }
     public void setRow(int rp){
         rowPosition = rp;
     }
@@ -32,9 +60,6 @@ public class player {
     public void setColumn(int cp){
         columnPosition = cp;
     }
-
-
-
 
     public int getRow(){
         return rowPosition;
@@ -54,14 +79,19 @@ public class player {
         return money;
     }
 
-
+    public void subtractMoney(int r){
+    	money = money-r;
+    }
+    
     public void addMoney(){
         money +=100; // Test value for now
     }
    
-    public void addProperty(String n){
+    public void addProperty(brand n){
         property.addToFront(n);
     }
    
-   
+   public String toString(){
+	   return name + "'s Stats: \nMoney:"  + money + "Property: \n" + property.toString();
+   }
 }
