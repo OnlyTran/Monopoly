@@ -43,7 +43,7 @@ public class LinkedList {
             result += dummy.getData();
             return result;
         } else {
-            return "Your list is empty!";
+            return "No brands learned from.";
         }
     }
     // Checks if the list is empty

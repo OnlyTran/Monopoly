@@ -83,8 +83,8 @@ public class player {
     	money = money-r;
     }
     
-    public void addMoney(){
-        money +=100; // Test value for now
+    public void addMoney(int m){
+        money += m; 
     }
    
     public void addProperty(brand n){
@@ -92,6 +92,6 @@ public class player {
     }
    
    public String toString(){
-	   return name + "'s Stats: \nMoney:"  + money + "Property: \n" + property.toString();
+	   return name + "'s Stats: \nMoney:"  + money + "\nBrands: \n" + property.toString();
    }
 }

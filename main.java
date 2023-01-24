@@ -27,12 +27,13 @@ public class main {
 				System.out.println("You can also save your game when it's your turn.");
 				System.out.println("Enjoy the game!");
 			} else if (menu == 2) {
-				gamemenu();
-			} else if (menu == 3) { // USED TO BE WHERE LOAD FILE WAS
+				game();
+			} else if (menu == 0) { // USED TO BE WHERE LOAD FILE WAS
 				// Read all the files and put it back
 				// Make separate save files for each class
 				// Use a toString method in each class to save and display all
 				// info
+				System.out.println("Goodbye and thanks for playing!");
 			}
 
 			System.out.println("Enter to continue...");
@@ -66,43 +67,43 @@ public class main {
 		}
 		// Name, row, column
 		board[0][0] = new gameboard("G", 0, 0); // GO
-		board[0][1] = new brand(); // Property (Alphabet Inc)
+		board[0][1] = new brand("Fitbit", 50, 40); // Property (Alphabet Inc)
 		board[0][1].setDisplay("B");
 		board[0][1].setPosition(0, 1);
 		board[0][2] = new gameboard("?", 0, 2); // Chance card
-		board[0][3] = new brand(); // Property (Alphabet Inc)
+		board[0][3] = new brand("Youtube", 40, 30); // Property (Alphabet Inc)
 		board[0][3].setDisplay("B");
 		board[0][3].setPosition(0, 3);
 		board[0][4] = new gameboard("T", 0, 4); // Tax
 		board[0][5] = new gameboard("T", 0, 5); // Tax
-		board[0][6] = new brand(); // Property (Alphabet Inc)
+		board[0][6] = new brand("Nest", 100, 70); // Property (Alphabet Inc)
 		board[0][6].setDisplay("B");
 		board[0][6].setPosition(0, 6);
 		board[0][7] = new gameboard("J", 0, 7); // Jail visit
 		board[1][0] = new gameboard("T", 1, 0); // Tax
-		board[2][0] = new gameboard(); // Property (Amazon)
+		board[2][0] = new gameboard("Twitch", 60, 45); // Property (Amazon)
 		board[2][0].setDisplay("B");
 		board[2][0].setPosition(2, 0);
 		board[3][0] = new gameboard("?", 3, 0); // Chance
-		board[4][0] = new gameboard(); // Property (Amazon)
+		board[4][0] = new gameboard("IMDb", 30, 20); // Property (Amazon)
 		board[4][0].setDisplay("B");
 		board[4][0].setPosition(4, 0);
-		board[5][0] = new gameboard();// Property (Amazon)
+		board[5][0] = new gameboard("Presto", 25, 20);// Property (Amazon)
 		board[5][0].setDisplay("B");
 		board[5][0].setPosition(5, 0);
 		board[6][0] = new gameboard("T", 6, 0); // Tax
-		board[1][7] = new brand(); // Property (Microsoft)
+		board[1][7] = new brand("GitHub", 65, 50); // Property (Microsoft)
 		board[1][7].setDisplay("B");
 		board[1][7].setPosition(1, 7);
 		board[2][7] = new gameboard("?", 2, 7); // Chance
-		board[3][7] = new brand(); // Property (Microsoft)
+		board[3][7] = new brand("LinkedIn", 40, 60); // Property (Microsoft)
 		board[3][7].setDisplay("B");
 		board[3][7].setPosition(3, 7);
 		board[4][7] = new gameboard("?", 4, 7); // Chance
-		board[5][7] = new brand(); // Property (Microsoft)
+		board[5][7] = new brand("Mojang", 20, 50); // Property (Microsoft)
 		board[5][7].setDisplay("B");
 		board[5][7].setPosition(5, 7);
-		board[6][7] = new brand(); // Property (Microsoft)
+		board[6][7] = new brand("Skype", 60, 100); // Property (Microsoft)
 		board[6][7].setDisplay("B");
 		board[6][7].setPosition(6, 7);
 		board[7][0] = new gameboard("A", 7, 0); // Go to jail (Arrested)
@@ -125,139 +126,176 @@ public class main {
 		System.out.println("Enter to continue...");
 		input.nextLine();
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-		
+		int choice = -1;
 		do {
 			for (int i = 0; i < p.length; i++) {
-				if(p[i].isArrested() == false){
-				System.out.println(p[i].getName() + "'s Menu:");
-				System.out.println("0. Save and Exit");
-				System.out.println("1. Roll");
-				System.out.println("2. Display Board");
-				System.out.println("3. Check stats");
-				System.out.println("4. Load Save File");
-				System.out.println("Enter choice: ");
-				int choice = input.nextInt();
-				input.nextLine();
-				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+				do {
+					if (i < p.length) {
+						System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+						if (p[i].isArrested() == false) {
+							System.out.println(p[i].getName() + "'s Menu:");
+							System.out.println("0. Save and Exit");
+							System.out.println("1. Roll");
+							System.out.println("2. Check stats");
+							System.out.println("3. Load Save File");
+							System.out.println("Enter choice: ");
+							choice = input.nextInt();
+							input.nextLine();
+							System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
-				if (choice == 1) {
-					// Use a for loop to compare everything inside of the
-					// gameboard
-					// Do if statement to see compare the positions of the
-					// player and board
-					// Nest another if statement to get the String of each
-					// individual object
-					// (Make a method inside of the class to display what type
-					// of object it is)
-					// Use the .equals string method to compare
-					// End the for loop immediately after completing
-					setPosition(p[i]);
-					printBoard(board, p, display);
-					System.out.println("Enter to continue...");
-					input.nextLine();
-					System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-					for (int j = 0; j < board.length; j++) {
-						for (int k = 0; k < board[j].length; k++) {
-							if ((p[i].getRow() == board[j][k].getRow())
-									&& (p[i].getColumn() == board[j][k].getColumn())) {
-								String objecttype = board[j][k].getDisplay();
-								if (objecttype.equalsIgnoreCase("B")) { // Landed
-																		// on
-																		// Brand
-									boolean notvalid = false;
-									// Linked list should hold objects
-									System.out.println("You landed on a brand!");
-									System.out.println("Enter to continue...");
-									input.nextLine();
-									if (((brand) board[j][k]).isBought()) {
-										System.out.println(
-												"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-										System.out.println(board[j][k].toString());
-										System.out.println("Would you like to learn from this brand?: ");
-										String brandchoice = input.nextLine();
-
-										if (brandchoice.equalsIgnoreCase("yes") || brandchoice.equalsIgnoreCase("y")) {
-											if (p[i].getMoney() > ((brand) board[j][k]).getMoney()) {
-												((brand) board[j][k]).buy();
-												p[i].subtractMoney(((brand) board[j][k]).getMoney());
-												p[i].addProperty((brand) board[j][k]);
-												System.out.println("Property bought!");
-											} else {
-												System.out.println("You don't have enough money!");
-											}
-										} else if (brandchoice.equalsIgnoreCase("no")
-												|| brandchoice.equalsIgnoreCase("n")) {
-											System.out.println(":(");
-										} else {
-											System.out.println("This isn't a valid answer!");
-											System.out.println("Enter to continue...");
-											input.nextLine();
-											notvalid = true;
-										}
-									} else {
-										System.out.println("Uh oh! You landed on someones brand.");
-										System.out.println(
-												"Its time to pay up: $" + (((brand) board[j][k]).getLessons()));
-										p[i].subtractMoney(((brand) board[j][k]).getLessons());
-									}
-								} else if (objecttype.equalsIgnoreCase("?")) { // Landed on chance
-									//Change of plans
-									//Chance is gonna be gameboard object
-									//Just make one chance spot always do the same thing
-
-								} else if (objecttype.equalsIgnoreCase("T")) { // Landed
-																				// on
-																				// tax
-									System.out.println("You landed on tax!");
-									System.out.println("It's time to pay up $50");
-									p[i].subtractMoney(50);
-								} else if (objecttype.equalsIgnoreCase("A")) { // Landed
-																				// on
-																				// arrest
-									System.out.println("Uh oh!");
-									System.out.println("You got arrested :(.");
-									System.out.println("You'll be arrested for 3 turns or can pay your way out.");
-									p[i].setArrest();
-									// Code the arrest
-								} else { // Landed on blank space
-									System.out.println("Peaceful...");
+							if (choice == 1) {
+								// Use a for loop to compare everything inside of the
+								// gameboard
+								// Do if statement to see compare the positions of the
+								// player and board
+								// Nest another if statement to get the String of each
+								// individual object
+								// (Make a method inside of the class to display what type
+								// of object it is)
+								// Use the .equals string method to compare
+								// End the for loop immediately after completing
+								boolean passgo = false;
+								if (i != 0) {
+									passgo = setPosition(p[i]);
+								} else {
+									setPosition(p[i]);
 								}
+								printBoard(board, p, display);
 								System.out.println("Enter to continue...");
 								input.nextLine();
+								System.out.println(
+										"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+								if (passgo) {
+									System.out.println("You just got your monthly paycheck!");
+									System.out.println("Heres $150!");
+									p[i].addMoney(150);
+									System.out.println("Enter to continue...");
+									input.nextLine();
+									System.out.println(
+											"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+								}
+								for (int j = 0; j < board.length; j++) {
+									for (int k = 0; k < board[j].length; k++) {
+										if ((p[i].getRow() == board[j][k].getRow())
+												&& (p[i].getColumn() == board[j][k].getColumn())) {
+											String objecttype = board[j][k].getDisplay();
+											if (objecttype.equalsIgnoreCase("B")) { // Landed
+																					// on
+																					// Brand
+												boolean notvalid = false;
+												// Linked list should hold objects
+												System.out.println("You landed on a brand!");
+												System.out.println("Enter to continue...");
+												input.nextLine();
+												if (((brand) board[j][k]).isBought() == false) {
+													System.out.println(
+															"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+													System.out.println(board[j][k].toString());
+													System.out.println("Would you like to learn from this brand?: ");
+													String brandchoice = input.nextLine();
+
+													if (brandchoice.equalsIgnoreCase("yes")
+															|| brandchoice.equalsIgnoreCase("y")) {
+														if (p[i].getMoney() > ((brand) board[j][k]).getMoney()) {
+															((brand) board[j][k]).buy();
+															p[i].subtractMoney(((brand) board[j][k]).getMoney());
+															p[i].addProperty((brand) board[j][k]);
+															System.out.println("Property bought!");
+														} else {
+															System.out.println("You don't have enough money!");
+														}
+													} else if (brandchoice.equalsIgnoreCase("no")
+															|| brandchoice.equalsIgnoreCase("n")) {
+														System.out.println(":(");
+													} else {
+														System.out.println("This isn't a valid answer!");
+														System.out.println("Enter to continue...");
+														input.nextLine();
+														notvalid = true;
+													}
+												} else {
+													System.out.println("Uh oh! You landed on someones brand.");
+													System.out.println(
+															"Its time to pay up: $"
+																	+ (((brand) board[j][k]).getLessons()));
+													p[i].subtractMoney(((brand) board[j][k]).getLessons());
+													if (i == 0) {
+														p[1].addMoney(((brand) board[j][k]).getLessons());
+													} else {
+														p[0].addMoney(((brand) board[j][k]).getLessons());
+													}
+												}
+											} else if (objecttype.equalsIgnoreCase("?")) { // Landed on chance
+												// Change of plans
+												// Chance is gonna be gameboard object
+												// Just make one chance spot always do the same thing
+
+											} else if (objecttype.equalsIgnoreCase("T")) { // Landed
+																							// on
+																							// tax
+												System.out.println("You landed on tax!");
+												System.out.println("It's time to pay up $50");
+												p[i].subtractMoney(50);
+											} else if (objecttype.equalsIgnoreCase("A")) { // Landed
+																							// on
+																							// arrest
+												System.out.println("Uh oh!");
+												System.out.println("It's time to take a break and go outside.");
+												System.out
+														.println(
+																"You'll be out for 3 turns or can pay your way out.");
+												p[i].setArrest();
+												// Code the arrest
+											} else { // Landed on blank space
+												System.out.println("Peaceful...");
+											}
+											System.out.println("Enter to continue...");
+											input.nextLine();
+										}
+									}
+								}
+
+							} else if (choice == 2) {
+								System.out.println(p[i].toString());
+							} else if (choice == 3) {
+								System.out.println("WIP");
+							} else if (choice == 0) {
+								exit = true;
+								i = 10;
+							}
+						} else {
+							if (p[i].getArrestedCount() < 3) {
+								System.out.println("Your currently outside :(");
+								System.out.println("This is day " + p[i].getArrestedCount() + " of torture...");
+							} else {
+								System.out.println("Woohoo final day!");
+								System.out.println("Happiness is close...");
+								p[i].resetArrestedCount();
+								p[i].resetArrest();
 							}
 						}
 					}
-
-				} else if (choice == 2) {
-					printBoard(board, p, display);
-				} else if (choice == 3) {
-					p[i].toString();
-				} else if (choice == 4) {
-					System.out.println("WIP");
-				} else if (choice == 0) {
-					System.out.println("WIP");
-					exit = true;
-				}
-			}else{
-				if(p[i].getArrestedCount() < 3){
-					System.out.println("Your currently arrested!");
-					System.out.println("This is day " + p[i].getArrestedCount() + " of jail...");
-				}else{
-					System.out.println("Woohoo final day!");
-					System.out.println("Freedom is close...");
-					p[i].resetArrestedCount();
-					p[i].resetArrest();
-				}
-			}
+				} while (choice != 1 && choice != 0);
 			}
 		} while (win(p) != true && exit != true);
-
+		System.out.println(win(p));
+		if (exit == false) {
+			if (p[0].getMoney() > p[1].getMoney()) {
+				System.out.println(p[0].getName() + " wins!");
+			} else {
+				System.out.println(p[1].getName() + " wins!");
+			}
+		} else {
+			System.out.println("Goodbye!");
+		}
 	}
 
-	public static void setPosition(player p) {
+	public static boolean setPosition(player p) {
 		int roll = roll();
 		int sum = 0;
 		int diff = 0;
+		int prevRow = p.getRow();
+		int prevColumn = p.getColumn();
 		System.out.println("You rolled a " + roll);
 		// Check if player is on rightmost column
 		if (p.getColumn() == 7) {
@@ -303,6 +341,18 @@ public class main {
 				p.setColumn(sum);
 			}
 		}
+		int row = p.getRow();
+		int column = p.getColumn();
+		boolean passgo = false;
+
+		if (prevColumn == 0) {
+			if (row == 0) {
+				passgo = true;
+			}
+		} else {
+			passgo = false;
+		}
+		return passgo;
 	}
 
 	public static int roll() {
@@ -369,33 +419,4 @@ public class main {
 		System.out.println("WIP");
 	}
 
-	public static void gamemenu() {
-		Scanner input = new Scanner(System.in);
-		int gamemenu;
-
-		System.out.println("Game Menu:");
-		System.out.println("0. Exit");
-		System.out.println("1. Mode Differences");
-		System.out.println("2. Classic Mode");
-		System.out.println("3. Turn Mode");
-		System.out.println("Enter choice: ");
-		gamemenu = input.nextInt();
-		input.nextLine();
-		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-
-		if (gamemenu == 1) {
-			System.out.println("The classic mode works as classic Monopoly,");
-			System.out.println("The game ends when only one person has money.");
-			System.out.println("The turn mode ends the game at a set amount of turns set by the player.");
-			System.out.println("At the end, the person with the most money wins.");
-		} else if (gamemenu == 2) {
-			classic();
-		} else if (gamemenu == 3) {
-			turn();
-		} else if (gamemenu != 0) {
-			System.out.println("Enter to continue...");
-			input.nextLine();
-		}
-
-	}
 }

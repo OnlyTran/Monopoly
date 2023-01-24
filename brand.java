@@ -13,11 +13,11 @@ public class brand extends gameboard{
         lessons = 0;
     }
    
-    public brand(String n, int c){
+    public brand(String n, int c, int l){
         name = n;
         cost =  c;
         bought = false;
-        lessons = 0;	
+        lessons = l;	
     }
    
     public int getLessons(){
