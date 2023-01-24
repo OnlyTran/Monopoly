@@ -1,0 +1,13 @@
+Fitbit,false,
+Youtube,false,
+Nest,false,
+GitHub,false,
+Twitch,false,
+LinkedIn,true,Tran
+IMDb,false,
+Presto,false,
+Mojang,false,
+Skype,true,Tran
+Facebook,false,
+Instagram,false,
+WhatsApp,false,

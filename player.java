@@ -1,5 +1,7 @@
-
 public class player {
+    // Declare private variables for the player's name, money, property,
+    // current row and column position on the gameboard, arrested status,
+    // and arrested count.
     private String name;
     private int money;
     private LinkedList property;
@@ -8,8 +10,8 @@ public class player {
     boolean arrested;
     int arrestedcount;
 
-
-    public player(){
+    // Default constructor for player class, sets initial values for all variables.
+    public player() {
         name = "";
         money = 200;
         property = new LinkedList();
@@ -18,8 +20,10 @@ public class player {
         arrested = false;
         arrestedcount = 0;
     }
-   
-    public player(String n){
+
+    // Overloaded constructor for player class, sets name and initial values for all
+    // other variables.
+    public player(String n) {
         name = n;
         money = 200;
         property = new LinkedList();
@@ -28,70 +32,109 @@ public class player {
         arrested = false;
         arrestedcount = 0;
     }
-    
-    public void resetArrestedCount(){
-    	arrestedcount = 0;
+
+    // Method to set the name
+    public void setName(String n){
+        name = n;
     }
-    
-    public void addArrestedCount(){
-    	arrestedcount+=1;
+
+    // Method to set the money
+    public void setMoney(int m){
+        money = m;
     }
-    
-    public int getArrestedCount(){
-    	return arrestedcount;
+
+    // Method to set the arrest
+    public void setArrest(boolean a){
+        arrested = a;
     }
-    
-    public void resetArrest(){
-    	arrested = false;
+
+    // Method to set the arresting turn count
+    public void setArrestedCount(int a){
+        arrestedcount = a;
     }
-    
-    public boolean isArrested(){
-    	return arrested;
+
+    // Method to return the property
+    public LinkedList getProperty() {
+        return property;
     }
-    
-    public void setArrest(){
-    	arrested = true;
+
+    // Method to reset the arrested count to 0
+    public void resetArrestedCount() {
+        arrestedcount = 0;
     }
-    public void setRow(int rp){
+
+    // Method to add 1 to the arrested count
+    public void addArrestedCount() {
+        arrestedcount += 1;
+    }
+
+    // Method to get the arrested count
+    public int getArrestedCount() {
+        return arrestedcount;
+    }
+
+    // Method to reset the arrested status to false
+    public void resetArrest() {
+        arrested = false;
+    }
+
+    // Method to get the arrested status
+    public boolean isArrested() {
+        return arrested;
+    }
+
+    // Method to set the arrested status to true
+    public void Arrest() {
+        arrested = true;
+    }
+
+    // Method to set the row position of the player
+    public void setRow(int rp) {
         rowPosition = rp;
     }
 
-
-    public void setColumn(int cp){
+    // Method to set the column position of the player
+    public void setColumn(int cp) {
         columnPosition = cp;
     }
 
-    public int getRow(){
+    // Method to get the row position of the player
+    public int getRow() {
         return rowPosition;
     }
 
-
-    public int getColumn(){
+    // Method to get the column position of the player
+    public int getColumn() {
         return columnPosition;
     }
 
-
-    public String getName(){
+    // Method to get the name of the player
+    public String getName() {
         return name;
     }
-   
-    public int getMoney(){
+
+    // Method to get the money of the player
+    public int getMoney() {
         return money;
     }
 
-    public void subtractMoney(int r){
-    	money = money-r;
+    // Method to subtract money from the player
+    public void subtractMoney(int r) {
+        money = money - r;
     }
-    
-    public void addMoney(int m){
-        money += m; 
+
+    // Method to add money to the player
+    public void addMoney(int m) {
+        money += m;
     }
-   
-    public void addProperty(brand n){
+
+    // Adds a brand to the player's brand list
+    public void addProperty(brand n) {
         property.addToFront(n);
     }
-   
-   public String toString(){
-	   return name + "'s Stats: \nMoney:"  + money + "\nBrands: \n" + property.toString();
-   }
+
+    // returns a string of the player's name, money and brand
+    public String toString() {
+        return name + "'s Stats: \nMoney:" + money + "\nBrands: \n" + property.toString();
+    }
 }

@@ -1,4 +1,4 @@
-
+import java.io.*;
 import java.util.*;
 
 public class main {
@@ -6,7 +6,7 @@ public class main {
 		Scanner input = new Scanner(System.in);
 		int menu;
 
-		do {
+		do { // Main menu
 			System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 			System.out.println("Menu:");
 			System.out.println("0. Exit");
@@ -17,7 +17,7 @@ public class main {
 			input.nextLine();
 			System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
-			if (menu == 1) {
+			if (menu == 1) { // If they choose the tutorial
 				System.out.println("Welcome to Monopoly: Coder Edition!");
 				System.out.println("This game works the exact same way as normal monopoly.");
 				System.out.println("The difference is that instead of buying property, ");
@@ -26,13 +26,9 @@ public class main {
 				System.out.println("Every lap around the board will give you your monthly paycheck.");
 				System.out.println("You can also save your game when it's your turn.");
 				System.out.println("Enjoy the game!");
-			} else if (menu == 2) {
+			} else if (menu == 2) { // If they choose to play
 				game();
-			} else if (menu == 0) { // USED TO BE WHERE LOAD FILE WAS
-				// Read all the files and put it back
-				// Make separate save files for each class
-				// Use a toString method in each class to save and display all
-				// info
+			} else if (menu == 0) { // If they choose to exit
 				System.out.println("Goodbye and thanks for playing!");
 			}
 
@@ -81,14 +77,14 @@ public class main {
 		board[0][6].setPosition(0, 6);
 		board[0][7] = new gameboard("J", 0, 7); // Jail visit
 		board[1][0] = new gameboard("T", 1, 0); // Tax
-		board[2][0] = new gameboard("Twitch", 60, 45); // Property (Amazon)
+		board[2][0] = new brand("Twitch", 60, 45); // Property (Amazon)
 		board[2][0].setDisplay("B");
 		board[2][0].setPosition(2, 0);
 		board[3][0] = new gameboard("?", 3, 0); // Chance
-		board[4][0] = new gameboard("IMDb", 30, 20); // Property (Amazon)
+		board[4][0] = new brand("IMDb", 30, 20); // Property (Amazon)
 		board[4][0].setDisplay("B");
 		board[4][0].setPosition(4, 0);
-		board[5][0] = new gameboard("Presto", 25, 20);// Property (Amazon)
+		board[5][0] = new brand("Presto", 25, 20);// Property (Amazon)
 		board[5][0].setDisplay("B");
 		board[5][0].setPosition(5, 0);
 		board[6][0] = new gameboard("T", 6, 0); // Tax
@@ -107,15 +103,15 @@ public class main {
 		board[6][7].setDisplay("B");
 		board[6][7].setPosition(6, 7);
 		board[7][0] = new gameboard("A", 7, 0); // Go to jail (Arrested)
-		board[7][1] = new brand(); // Property (Sony)
+		board[7][1] = new brand("Facebook", 50, 60); // Property (Meta)
 		board[7][1].setDisplay("B");
 		board[7][1].setPosition(7, 1);
 		board[7][2] = new gameboard("?", 7, 2); // Chance
 		board[7][3] = new gameboard("T", 7, 3); // Tax
-		board[7][4] = new brand(); // Property (Sony)
+		board[7][4] = new brand("Instagram", 20, 15); // Property (Meta)
 		board[7][4].setDisplay("B");
 		board[7][4].setPosition(7, 4);
-		board[7][5] = new brand(); // Property (Sony)
+		board[7][5] = new brand("WhatsApp", 25, 30); // Property (Meta)
 		board[7][5].setDisplay("B");
 		board[7][5].setPosition(7, 5);
 		board[7][6] = new gameboard("?", 7, 6); // Chance
@@ -127,6 +123,7 @@ public class main {
 		input.nextLine();
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		int choice = -1;
+		boolean passgo = false;
 		do {
 			for (int i = 0; i < p.length; i++) {
 				do {
@@ -154,7 +151,6 @@ public class main {
 								// of object it is)
 								// Use the .equals string method to compare
 								// End the for loop immediately after completing
-								boolean passgo = false;
 								if (i != 0) {
 									passgo = setPosition(p[i]);
 								} else {
@@ -200,7 +196,8 @@ public class main {
 															((brand) board[j][k]).buy();
 															p[i].subtractMoney(((brand) board[j][k]).getMoney());
 															p[i].addProperty((brand) board[j][k]);
-															System.out.println("Property bought!");
+															((brand) board[j][k]).setOwner(p[i].getName());
+															System.out.println("You learned so much about Java!");
 														} else {
 															System.out.println("You don't have enough money!");
 														}
@@ -224,12 +221,40 @@ public class main {
 													} else {
 														p[0].addMoney(((brand) board[j][k]).getLessons());
 													}
+													System.out.println("The other player gets $"
+															+ ((brand) board[j][k]).getLessons());
 												}
 											} else if (objecttype.equalsIgnoreCase("?")) { // Landed on chance
-												// Change of plans
-												// Chance is gonna be gameboard object
-												// Just make one chance spot always do the same thing
-
+												System.out.println("Oh? A chance...");
+												System.out.println("Enter to continue...");
+												input.nextLine();
+												if (board[j][k].getRow() == 0 && board[j][k].getColumn() == 2) {
+													System.out.println("Woah your code got so famous!");
+													System.out.println("You got $200!");
+													p[i].addMoney(200);
+												} else if (board[j][k].getRow() == 2 && board[j][k].getColumn() == 7) {
+													System.out.println("Oh no! Your parents forced you to go outside.");
+													System.out.println("You can't code for 3 days :(");
+													p[i].Arrest();
+												} else if (board[j][k].getRow() == 4 && board[j][k].getColumn() == 7) {
+													System.out.println(
+															"You got stuck on this code for so long you paid your way to solve it.");
+													System.out.println("You paid $25, ouch a steep price.");
+													p[i].subtractMoney(25);
+												} else if (board[j][k].getRow() == 7 && board[j][k].getColumn() == 2) {
+													System.out
+															.println("Lucky you! You get to travel back to the start.");
+													p[i].setRow(0);
+													p[i].setColumn(0);
+												} else if (board[j][k].getRow() == 7 && board[j][k].getColumn() == 6) {
+													System.out.println("You get to go to free parking.");
+													p[i].setRow(7);
+													p[i].setColumn(7);
+												} else if (board[j][k].getRow() == 3 && board[j][k].getColumn() == 0) {
+													System.out.println("Electricity bill came in.");
+													System.out.println("YOu paid $20");
+													p[i].subtractMoney(20);
+												}
 											} else if (objecttype.equalsIgnoreCase("T")) { // Landed
 																							// on
 																							// tax
@@ -241,11 +266,9 @@ public class main {
 																							// arrest
 												System.out.println("Uh oh!");
 												System.out.println("It's time to take a break and go outside.");
-												System.out
-														.println(
-																"You'll be out for 3 turns or can pay your way out.");
-												p[i].setArrest();
-												// Code the arrest
+												System.out.println("You'll be out for 3 days.");
+												p[i].Arrest();
+												// Arrest the player
 											} else { // Landed on blank space
 												System.out.println("Peaceful...");
 											}
@@ -257,9 +280,14 @@ public class main {
 
 							} else if (choice == 2) {
 								System.out.println(p[i].toString());
+								System.out.println("Enter to continue...");
+								input.nextLine();
 							} else if (choice == 3) {
-								System.out.println("WIP");
+								loadPlayerData(p);
+								loadBrands(board, p);
 							} else if (choice == 0) {
+								savePlayerData(p);
+								saveBrandData(board);
 								exit = true;
 								i = 10;
 							}
@@ -267,26 +295,133 @@ public class main {
 							if (p[i].getArrestedCount() < 3) {
 								System.out.println("Your currently outside :(");
 								System.out.println("This is day " + p[i].getArrestedCount() + " of torture...");
+								p[i].addArrestedCount();
+								System.out.println("Enter to continue...");
+								input.nextLine();
 							} else {
 								System.out.println("Woohoo final day!");
 								System.out.println("Happiness is close...");
 								p[i].resetArrestedCount();
 								p[i].resetArrest();
+								System.out.println("Enter to continue...");
+								input.nextLine();
 							}
 						}
 					}
 				} while (choice != 1 && choice != 0);
 			}
 		} while (win(p) != true && exit != true);
-		System.out.println(win(p));
 		if (exit == false) {
 			if (p[0].getMoney() > p[1].getMoney()) {
 				System.out.println(p[0].getName() + " wins!");
 			} else {
 				System.out.println(p[1].getName() + " wins!");
 			}
+			System.out.println(p[0].getName() + " had $" + p[0].getMoney());
+			System.out.println(p[1].getName() + " had $" + p[1].getMoney());
 		} else {
 			System.out.println("Goodbye!");
+		}
+	}
+
+	private static void loadBrands(gameboard[][] board, player[] p) {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("branddata.txt"));
+			String line;
+			while ((line = br.readLine()) != null) {
+				String[] data = line.split(",");
+				String name = data[0];
+				boolean bought = Boolean.parseBoolean(data[1]);
+				if (data.length > 2) {
+					String ownerName = data[2];
+					for (int i = 0; i < board.length; i++) {
+						for (int j = 0; j < board[i].length; j++) {
+							if (board[i][j].getDisplay().equalsIgnoreCase("B")) {
+								if (((brand) board[i][j]).getName() == name) {
+									if (p[0].getName().equalsIgnoreCase(ownerName)) {
+										((brand) board[i][j]).buy();
+										p[0].addProperty((brand) board[i][j]);
+									} else {
+										((brand) board[i][j]).buy();
+										p[1].addProperty((brand) board[i][j]);
+									}
+								}
+							}
+						}
+					}
+					System.out.println("Brand files loaded");
+				}
+			}
+			br.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void loadPlayerData(player[] p) {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("playerdata.txt"));
+			String line;
+			int i = 0;
+			while ((line = br.readLine()) != null) {
+				String[] data = line.split(",");
+				p[i].setName(data[0]);
+				p[i].setMoney(Integer.parseInt(data[1]));
+				p[i].setArrest(Boolean.parseBoolean(data[2]));
+				p[i].setArrestedCount(Integer.parseInt(data[3]));
+				p[i].setRow(Integer.parseInt(data[4]));
+				p[i].setColumn(Integer.parseInt(data[5]));
+				i++;
+			}
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("Player files loaded!");
+	}
+
+	public static void saveBrandData(gameboard[][] board) {
+		try {
+			FileWriter fw = new FileWriter("branddata.txt");
+			BufferedWriter bw = new BufferedWriter(fw);
+			for (int i = 0; i < board.length; i++) {
+				for (int j = 0; j < board[i].length; j++) {
+					if (board[i][j].getDisplay().equalsIgnoreCase("B")) {
+						brand b = (brand) board[i][j];
+						bw.write(b.getName() + "," + b.isBought() + "," + b.getOwner());
+						bw.newLine();
+					}
+				}
+			}
+			bw.close();
+			fw.close();
+			System.out.println("Brand data saved.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void savePlayerData(player[] p) {
+
+		try {
+			FileWriter fw = new FileWriter("playerdata.txt");
+			BufferedWriter bw = new BufferedWriter(fw);
+
+			// Write player data to file
+			for (int i = 0; i < p.length; i++) {
+				bw.write(p[i].getName() + "," + p[i].getMoney() + "," + p[i].isArrested() + ","
+						+ p[i].getArrestedCount() + "," + p[i].getRow() + ","
+						+ p[i].getColumn());
+				bw.newLine();
+			}
+
+			bw.close();
+			System.out.println("Player data saved to file.");
+		} catch (IOException e) {
+			System.out.println("Error saving player data to file.");
+			e.printStackTrace();
 		}
 	}
 
@@ -353,6 +488,7 @@ public class main {
 			passgo = false;
 		}
 		return passgo;
+
 	}
 
 	public static int roll() {
@@ -388,9 +524,9 @@ public class main {
 		System.out.println("B: Brand (Property)");
 		System.out.println("?: Chance");
 		System.out.println("T: Tax");
-		System.out.println("J: Visit Jail/Jail");
+		System.out.println("J: Visit Outside");
 		System.out.println("P: Free Parking");
-		System.out.println("A: Get Arrested");
+		System.out.println("A: Go Outside");
 		for (int i = 0; i < display.length; i++) {
 			for (int j = 0; j < display[i].length; j++) {
 				System.out.print(display[i][j] + "   ");
@@ -409,14 +545,6 @@ public class main {
 
 	public static void classic() {
 		game();
-	}
-
-	public static void turn() {
-		Scanner input = new Scanner(System.in);
-		// System.out.println("How many turns do you want?: ");
-		// int turns = input.nextInt();
-
-		System.out.println("WIP");
 	}
 
 }

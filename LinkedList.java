@@ -16,7 +16,7 @@ public class LinkedList {
             head = newNode;
         }
     }
-    // Remove a string from the list
+    // Remove a object from the list
     public String remove() {
         String removed = getTopItem();
         Node newNode = head.getNext();
@@ -37,7 +37,7 @@ public class LinkedList {
         Node dummy = head;
         if (head != null) {
             while (dummy.getNext() != null) {
-                result += (dummy.getData() + ", ");
+                result += (dummy.getData() + "\n");
                 dummy = dummy.getNext();
             }
             result += dummy.getData();
