@@ -1,2 +1,2 @@
-Justin,300,true,0,2,7
-Tran,200,false,0,6,7
+asd,200,true,0,7,0
+asd,200,false,0,0,0

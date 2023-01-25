@@ -1,3 +1,11 @@
+/**
+ * Justin Tran
+ * Course: ICS4U
+ * Date: Jan 24, 2023
+ * Allow the user to play Monopoly: Coder Edition
+ */
+
+
 import java.io.*;
 import java.util.*;
 
@@ -34,19 +42,27 @@ public class main {
 
 			System.out.println("Enter to continue...");
 			input.nextLine();
-		} while (menu != 0);
+		} while (menu != 0); //Loop until they exit
 	}
 
+
+	
+    /*
+    Allows the user to play the monopoly game
+    Pre: None
+    Post: Nothing being returned, just allows them to play the game
+    */
 	public static void game() {
 		Scanner input = new Scanner(System.in);
-		player[] p = new player[2];
+		player[] p = new player[2]; // Sets up an array of 2 players
 		System.out.println("Enter player one name: ");
 		String one = input.nextLine();
-		p[0] = new player(one);
+		p[0] = new player(one); 
 		System.out.println("Enter player two name: ");
 		String two = input.nextLine();
 		p[1] = new player(two);
-
+		// Create the players with their names
+		// Create an 8x8 gameboard
 		gameboard[][] board = new gameboard[8][8];
 
 		// Construct the blank objects in the middle of the arrray (middle of
@@ -116,20 +132,28 @@ public class main {
 		board[7][5].setPosition(7, 5);
 		board[7][6] = new gameboard("?", 7, 6); // Chance
 		board[7][7] = new gameboard("P", 7, 7); // Free parking
-		boolean exit = false;
-		String[][] display = new String[board.length][board[0].length];
+		boolean exit = false; // boolean for if user wants to leave game
+		String[][] display = new String[board.length][board[0].length]; 
+		// Display will be the single characters printed on the board
+		// Ex. Chance = ?
 		printBoard(board, p, display);
+		// Call method to print the board
 		System.out.println("Enter to continue...");
 		input.nextLine();
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		int choice = -1;
+		// Choice for the menu when they play the game
 		boolean passgo = false;
-		do {
-			for (int i = 0; i < p.length; i++) {
-				do {
+		// Boolean to see if they pass go
+		int turncount = 0;
+		// Turn count used for the go boolean
+		do { // Loop until a winner is chosen or the user quits
+			turncount++;
+			for (int i = 0; i < p.length; i++) { // Loop between the two players
+				do { // Loop until the user chooses to roll or exit
 					if (i < p.length) {
 						System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-						if (p[i].isArrested() == false) {
+						if (p[i].isArrested() == false) { // Game menu
 							System.out.println(p[i].getName() + "'s Menu:");
 							System.out.println("0. Save and Exit");
 							System.out.println("1. Roll");
@@ -151,17 +175,20 @@ public class main {
 								// of object it is)
 								// Use the .equals string method to compare
 								// End the for loop immediately after completing
-								if (i != 0) {
-									passgo = setPosition(p[i]);
-								} else {
+
+								if (turncount < 3) { // If it's not the first two rounds of the game
 									setPosition(p[i]);
+								} else { // If its any other round
+									passgo = setPosition(p[i]);
+									// Pass go is set up
 								}
 								printBoard(board, p, display);
 								System.out.println("Enter to continue...");
 								input.nextLine();
 								System.out.println(
 										"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-								if (passgo) {
+								if (passgo) { // If they passed go
+									// Add their money and inform they got their paycheck
 									System.out.println("You just got your monthly paycheck!");
 									System.out.println("Heres $150!");
 									p[i].addMoney(150);
@@ -170,11 +197,12 @@ public class main {
 									System.out.println(
 											"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 								}
-								for (int j = 0; j < board.length; j++) {
-									for (int k = 0; k < board[j].length; k++) {
-										if ((p[i].getRow() == board[j][k].getRow())
-												&& (p[i].getColumn() == board[j][k].getColumn())) {
-											String objecttype = board[j][k].getDisplay();
+								for (int j = 0; j < board.length; j++) { 
+									for (int k = 0; k < board[j].length; k++) { 
+										// Double for loop used to check what was landed on
+										if ((p[i].getRow() == board[j][k].getRow()) && (p[i].getColumn() == board[j][k].getColumn())) {
+											// If the player position = to the board position
+											String objecttype = board[j][k].getDisplay(); // get the display of that positon
 											if (objecttype.equalsIgnoreCase("B")) { // Landed
 																					// on
 																					// Brand
@@ -183,39 +211,47 @@ public class main {
 												System.out.println("You landed on a brand!");
 												System.out.println("Enter to continue...");
 												input.nextLine();
-												if (((brand) board[j][k]).isBought() == false) {
+												if (((brand) board[j][k]).isBought() == false) { 
+													// if the brand was not learned from yet
 													System.out.println(
 															"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 													System.out.println(board[j][k].toString());
 													System.out.println("Would you like to learn from this brand?: ");
 													String brandchoice = input.nextLine();
 
-													if (brandchoice.equalsIgnoreCase("yes")
+													if (brandchoice.equalsIgnoreCase("yes") // if they choose to buy it
 															|| brandchoice.equalsIgnoreCase("y")) {
 														if (p[i].getMoney() > ((brand) board[j][k]).getMoney()) {
-															((brand) board[j][k]).buy();
+															// If they have enough money to buy it
+															((brand) board[j][k]).buy(); // Set buy as true
 															p[i].subtractMoney(((brand) board[j][k]).getMoney());
+															// Takes away money from the cost of the brand
 															p[i].addProperty((brand) board[j][k]);
+															// Adds it to the linked list
 															((brand) board[j][k]).setOwner(p[i].getName());
+															// Set the brand to the owner
 															System.out.println("You learned so much about Java!");
-														} else {
+														} else { // If they don't have enough money
 															System.out.println("You don't have enough money!");
 														}
 													} else if (brandchoice.equalsIgnoreCase("no")
 															|| brandchoice.equalsIgnoreCase("n")) {
+																// If they choose to not buy the game
 														System.out.println(":(");
 													} else {
+														// If they choose anything else
 														System.out.println("This isn't a valid answer!");
 														System.out.println("Enter to continue...");
 														input.nextLine();
 														notvalid = true;
 													}
-												} else {
+												} else { // If you landed on a brand someone already owned
 													System.out.println("Uh oh! You landed on someones brand.");
 													System.out.println(
 															"Its time to pay up: $"
 																	+ (((brand) board[j][k]).getLessons()));
 													p[i].subtractMoney(((brand) board[j][k]).getLessons());
+													// Deduct money from the player and give it to the other
 													if (i == 0) {
 														p[1].addMoney(((brand) board[j][k]).getLessons());
 													} else {
@@ -228,6 +264,7 @@ public class main {
 												System.out.println("Oh? A chance...");
 												System.out.println("Enter to continue...");
 												input.nextLine();
+												// Each chance is a different situation
 												if (board[j][k].getRow() == 0 && board[j][k].getColumn() == 2) {
 													System.out.println("Woah your code got so famous!");
 													System.out.println("You got $200!");
@@ -278,43 +315,48 @@ public class main {
 									}
 								}
 
-							} else if (choice == 2) {
+							} else if (choice == 2) { // print out the stats of the player
+								// Returns money and brands learned from
 								System.out.println(p[i].toString());
 								System.out.println("Enter to continue...");
 								input.nextLine();
 							} else if (choice == 3) {
+								// Loads data from the text files
 								loadPlayerData(p);
 								loadBrands(board, p);
 							} else if (choice == 0) {
+								// Exits and saves the data
 								savePlayerData(p);
 								saveBrandData(board);
 								exit = true;
 								i = 10;
 							}
-						} else {
+						} else { // Iif the user was arrested
 							if (p[i].getArrestedCount() < 3) {
+								// if the 3 turns haven't passed
 								System.out.println("Your currently outside :(");
-								System.out.println("This is day " + p[i].getArrestedCount() + " of torture...");
-								p[i].addArrestedCount();
+								System.out.println("This is day " + (p[i].getArrestedCount()+ 1) + " of torture...");
+								p[i].addArrestedCount(); // Add one to the arrest counter
 								System.out.println("Enter to continue...");
 								input.nextLine();
-							} else {
+							} else { // If its their final day outside
 								System.out.println("Woohoo final day!");
 								System.out.println("Happiness is close...");
 								p[i].resetArrestedCount();
 								p[i].resetArrest();
+								// Reset the boolean and counter
 								System.out.println("Enter to continue...");
 								input.nextLine();
 							}
 						}
 					}
-				} while (choice != 1 && choice != 0);
+				} while (choice != 1 && choice != 0); // Loop until they rolled or exit
 			}
-		} while (win(p) != true && exit != true);
-		if (exit == false) {
-			if (p[0].getMoney() > p[1].getMoney()) {
+		} while (win(p) != true && exit != true); // Loop until game is over 
+		if (exit == false) { // if the game was actually played
+			if (p[0].getMoney() > p[1].getMoney()) { // If player 1 won
 				System.out.println(p[0].getName() + " wins!");
-			} else {
+			} else { // if player 2 won
 				System.out.println(p[1].getName() + " wins!");
 			}
 			System.out.println(p[0].getName() + " had $" + p[0].getMoney());
@@ -324,33 +366,43 @@ public class main {
 		}
 	}
 
-	private static void loadBrands(gameboard[][] board, player[] p) {
+	
+    /*
+    Loads the branddata.txt file, keeping the progress from before
+    Pre: Takes in the gameboard and the two players
+    Post: Returns nothing but gives them brands back to the players
+    */
+	public static void loadBrands(gameboard[][] board, player[] p) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("branddata.txt"));
 			String line;
 			while ((line = br.readLine()) != null) {
+				// Reads until the text file is blank
 				String[] data = line.split(",");
+				// Makes an array holding all the data 
 				String name = data[0];
 				boolean bought = Boolean.parseBoolean(data[1]);
-				if (data.length > 2) {
-					String ownerName = data[2];
-					for (int i = 0; i < board.length; i++) {
-						for (int j = 0; j < board[i].length; j++) {
-							if (board[i][j].getDisplay().equalsIgnoreCase("B")) {
-								if (((brand) board[i][j]).getName() == name) {
-									if (p[0].getName().equalsIgnoreCase(ownerName)) {
-										((brand) board[i][j]).buy();
-										p[0].addProperty((brand) board[i][j]);
-									} else {
-										((brand) board[i][j]).buy();
-										p[1].addProperty((brand) board[i][j]);
+				String ownerName = data[2];
+				// Stores the name, bought and owner name
+				for (int i = 0; i < board.length; i++) {
+					for (int j = 0; j < board[i].length; j++) {
+						if (board[i][j].getDisplay().equalsIgnoreCase("B")) {
+							// If it's a brand
+							if (((brand) board[i][j]).getName().equals(name)) {
+								// If the brand on the board is the same one as the save file
+								((brand) board[i][j]).buy();
+								for (int k = 0; k < p.length; k++) {
+									if (p[k].getName().equals(ownerName)) {
+										// if it's the player's brand
+										p[k].addProperty((brand) board[i][j]);
+										break;
 									}
 								}
 							}
 						}
 					}
-					System.out.println("Brand files loaded");
 				}
+				System.out.println("Brand files loaded");
 			}
 			br.close();
 
@@ -359,13 +411,21 @@ public class main {
 		}
 	}
 
+	
+    /*
+    Loads the playerdata.txt file, keeping the progress from before
+    Pre: Takes in the two players
+    Post: Returns nothing but gives the players back their position,money and if they're arrested or not
+    */
 	public static void loadPlayerData(player[] p) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("playerdata.txt"));
 			String line;
 			int i = 0;
 			while ((line = br.readLine()) != null) {
+				// Read until the file is blank
 				String[] data = line.split(",");
+				// Make an array storing all the data from the file
 				p[i].setName(data[0]);
 				p[i].setMoney(Integer.parseInt(data[1]));
 				p[i].setArrest(Boolean.parseBoolean(data[2]));
@@ -382,6 +442,12 @@ public class main {
 		System.out.println("Player files loaded!");
 	}
 
+
+	/*
+    Saves the branddata.txt file with the current brands that are bought out and who owns them
+    Pre: Takes in the gameboard
+    Post: Returns nothing
+    */
 	public static void saveBrandData(gameboard[][] board) {
 		try {
 			FileWriter fw = new FileWriter("branddata.txt");
@@ -389,9 +455,14 @@ public class main {
 			for (int i = 0; i < board.length; i++) {
 				for (int j = 0; j < board[i].length; j++) {
 					if (board[i][j].getDisplay().equalsIgnoreCase("B")) {
-						brand b = (brand) board[i][j];
-						bw.write(b.getName() + "," + b.isBought() + "," + b.getOwner());
-						bw.newLine();
+						// If it's a brand
+						if (((brand) board[i][j]).isBought()) {
+							// If the brand was bought
+							brand b = (brand) board[i][j]; // Make a brand copy
+							bw.write(b.getName() + "," + b.isBought() + "," + b.getOwner());
+							bw.newLine();
+							// Store the data
+						}
 					}
 				}
 			}
@@ -402,7 +473,11 @@ public class main {
 			e.printStackTrace();
 		}
 	}
-
+	/*
+    Saves the playerdata.txt file with the players position, money and if they're arrested
+    Pre: Takes in the players
+    Post: Returns nothing
+    */
 	public static void savePlayerData(player[] p) {
 
 		try {
@@ -424,7 +499,11 @@ public class main {
 			e.printStackTrace();
 		}
 	}
-
+	/*
+    Calculates the players position when a dice will be rolled
+    Pre: Takes in the player
+    Post: Returns a boolean on whether or not they passed the go mark
+    */
 	public static boolean setPosition(player p) {
 		int roll = roll();
 		int sum = 0;
@@ -445,17 +524,19 @@ public class main {
 		}
 		// Check if player is on bottom row
 		else if (p.getRow() == 7) {
-			sum = (p.getColumn() + roll);
-			if (sum > 7) {
+			sum = (p.getColumn() - roll);
+			if (sum < 0) {
+				diff = Math.abs(sum);
 				p.setColumn(0);
-				diff = sum - 7;
 				p.setRow(7 - diff);
 			} else {
-				p.setColumn(7 - sum);
+				p.setColumn(sum);
 			}
 		}
 		// Check if player is on leftmost column
-		else if (p.getColumn() == 0) {
+		else if (p.getColumn() == 0)
+
+		{
 			diff = (p.getRow() - roll);
 			if (diff < 0) {
 				p.setRow(0);
@@ -490,17 +571,27 @@ public class main {
 		return passgo;
 
 	}
-
+	/*
+    Dice roller
+    Pre: Takes in nothing
+    Post: Returns the number rolled from the dice
+    */
 	public static int roll() {
 		Random rand = new Random();
 		return rand.nextInt(6) + 1;
 	}
 
+	/*
+    Prints out the visual of the game board to the user
+    Pre: Takes in the players, gameboard and their display characters
+    Post: Returns nothing just displays game board
+    */
 	public static void printBoard(gameboard[][] board, player[] p, String[][] display) {
 		Scanner input = new Scanner(System.in);
 		System.out.println("P1 Spots: " + p[0].getRow() + ", " + p[0].getColumn());
 		System.out.println("P2 Spots: " + p[1].getRow() + ", " + p[1].getColumn());
 		System.out.println("Enter to continue...");
+		// Displays the user spots
 		input.nextLine();
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		// loop through the display array and set the values to the
@@ -508,11 +599,12 @@ public class main {
 		for (int i = 0; i < display.length; i++) {
 			for (int j = 0; j < display[i].length; j++) {
 				if (i == p[0].getRow() && j == p[0].getColumn()) {
-					display[i][j] = "1";
+					display[i][j] = "1"; // Player 1 position
 				} else if (i == p[1].getRow() && j == p[1].getColumn()) {
-					display[i][j] = "2";
+					display[i][j] = "2"; // Player 2 position
 				} else {
 					display[i][j] = board[i][j].getDisplay();
+					// The normal display
 				}
 			}
 		}
@@ -534,17 +626,18 @@ public class main {
 			System.out.println();
 		}
 	}
-
+	/*
+    Checks if a person has won the game
+    Pre: Takes in the players
+    Post: Returns a boolean, true if someone wins and false if no one won
+    */
 	public static boolean win(player[] p) {
 		if (p[0].getMoney() < 1 || p[1].getMoney() < 1) {
+			// If someone goes bankrupt
 			return true;
 		} else {
 			return false;
 		}
-	}
-
-	public static void classic() {
-		game();
 	}
 
 }
